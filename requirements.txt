@@ -12,3 +12,7 @@ langchain-community
 ragatouille
 jupyter
 pdfplumber
+ragas
+sacrebleu
+rapidfuzz
+flashrank
