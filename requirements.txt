@@ -1,0 +1,13 @@
+torch
+numpy<2
+transformers
+langchain
+sentence-transformers
+tqdm
+openpyxl
+openai
+pandas
+datasets
+langchain-community
+ragatouille
+jupyter
