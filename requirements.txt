@@ -11,3 +11,4 @@ datasets
 langchain-community
 ragatouille
 jupyter
+pdfplumber
