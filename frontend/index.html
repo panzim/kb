@@ -10,7 +10,7 @@
 <!-- Header -->
 <div class="bg-white border-b border-gray-200 px-6 py-4">
     <h1 class="text-xl font-semibold text-gray-800 flex items-center gap-2">
-        🤖 AI Assistant
+        🤖 PANZIM Assistant
     </h1>
 </div>
 
@@ -71,15 +71,13 @@
     async function initChat() {
       try {
         if (!document.cookie.includes("krisp-session")) {
-          // const res = await fetch("/session", { method: "POST", credentials: "include"});
-          const res = {"ok": true} // TODO
+          const res = await fetch("/session", { method: "POST", credentials: "include"});
           if (!res.ok) {
             console.error("Init chat failed", res);
           }
         }
 
-        //const res = await fetch("/history", { credentials: "include" });
-        const res = {"json": function(){ return [] }, "ok": true} // TODO
+        const res = await fetch("/history", { credentials: "include" });
         if (res.ok) {
           const history = await res.json();
           history.forEach((m) => addMessage(m.text, m.sender));
@@ -99,21 +97,14 @@
       input.value = "";
 
       try {
-        // TODO
-        /*
         const res = await fetch("/chat", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           credentials: "include",
-          body: JSON.stringify({ messages }),
+          body: JSON.stringify({"user_message": text}),
         });
-        */
-        const res = {"ok": true, "json": function(){
-          var msg = messages[messages.length - 1].text + " 🤔" // TODO
-          return {"reply": msg}
-        }}
 
         if (res.ok) {
           const data = await res.json();
