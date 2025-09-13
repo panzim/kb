@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Minimal Chat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 flex flex-col h-screen">
+
+<!-- Header -->
+<div class="bg-white border-b border-gray-200 px-6 py-4">
+    <h1 class="text-xl font-semibold text-gray-800 flex items-center gap-2">
+        🤖 AI Assistant
+    </h1>
+</div>
+
+<!-- Messages -->
+<div id="chat" class="flex-1 overflow-y-auto px-4 py-6 space-y-4">
+    <!-- Messages will appear here -->
+</div>
+
+<!-- Input -->
+<div class="bg-white border-t border-gray-200 px-4 py-4">
+    <div class="flex items-end gap-3 max-w-4xl mx-auto">
+      <textarea
+              id="input"
+              placeholder="Type your message..."
+              rows="1"
+              class="flex-1 px-4 py-3 pr-12 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none text-sm"
+              style="min-height:48px; max-height:120px; overflow-y:auto"
+      ></textarea>
+        <button
+                id="sendBtn"
+                class="flex-shrink-0 w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center transition-colors"
+        >
+            ➤
+        </button>
+    </div>
+    <p class="text-xs text-gray-500 text-center mt-2">
+        Press Enter to send, Shift+Enter for new line
+    </p>
+</div>
+
+<script>
+    const chat = document.getElementById("chat");
+    const input = document.getElementById("input");
+    const sendBtn = document.getElementById("sendBtn");
+
+    let messages = []; // store all messages (user + bot)
+
+    function addMessage(text, sender = "user") {
+      const wrapper = document.createElement("div");
+      wrapper.className = `flex items-start gap-3 ${
+        sender === "user" ? "flex-row-reverse" : ""
+      }`;
+
+      const bubble = document.createElement("div");
+      bubble.className =
+        sender === "user"
+          ? "max-w-xs lg:max-w-2xl px-4 py-3 rounded-2xl bg-blue-600 text-white rounded-br-sm"
+          : "max-w-xs lg:max-w-2xl px-4 py-3 rounded-2xl bg-white text-gray-800 border border-gray-200 rounded-bl-sm";
+
+      bubble.innerText = text;
+      wrapper.appendChild(bubble);
+      chat.appendChild(wrapper);
+      chat.scrollTop = chat.scrollHeight;
+
+      messages.push({ sender, text }); // store in context
+    }
+
+    async function initChat() {
+      try {
+        if (!document.cookie.includes("krisp-session")) {
+          // const res = await fetch("/session", { method: "POST", credentials: "include"});
+          const res = {"ok": true} // TODO
+          if (!res.ok) {
+            console.error("Init chat failed", res);
+          }
+        }
+
+        //const res = await fetch("/history", { credentials: "include" });
+        const res = {"json": function(){ return [] }, "ok": true} // TODO
+        if (res.ok) {
+          const history = await res.json();
+          history.forEach((m) => addMessage(m.text, m.sender));
+        } else {
+          console.error("Init chat failed", res);
+        }
+      } catch (err) {
+        console.error("Init chat failed", err);
+      }
+    }
+
+    async function sendMessage() {
+      const text = input.value.trim();
+      if (!text) return;
+
+      addMessage(text, "user");
+      input.value = "";
+
+      try {
+        // TODO
+        /*
+        const res = await fetch("/chat", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({ messages }),
+        });
+        */
+        const res = {"ok": true, "json": function(){
+          var msg = messages[messages.length - 1].text + " 🤔" // TODO
+          return {"reply": msg}
+        }}
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.reply) {
+            addMessage(data.reply, "bot");
+          }
+        } else {
+          console.error("Failed to send message:", res.status);
+        }
+      } catch (err) {
+        console.error("Error sending message", err);
+      }
+    }
+
+    sendBtn.addEventListener("click", sendMessage);
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    initChat();
+</script>
+</body>
+</html>
