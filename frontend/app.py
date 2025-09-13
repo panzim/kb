@@ -95,7 +95,7 @@ def get_history(request: Request):
         raise HTTPException(status_code=401, detail="No valid session")
     return get_messages(krisp_session)
 
-@app.put("/chat")
+@app.post("/chat")
 def chat(request: Request, chatRequest: ChatRequest):
     krisp_session = request.cookies.get(KRISP_SESSION)
     if not krisp_session or not session_exists(krisp_session):
