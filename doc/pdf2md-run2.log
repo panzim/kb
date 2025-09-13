@@ -1,0 +1,120 @@
+2025-09-13 11:05:33,334 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:05:33,341 - INFO - Going to convert document batch...
+2025-09-13 11:05:33,342 - INFO - Initializing pipeline for StandardPdfPipeline with options hash e647edf348883bed75367b22fbe60347
+2025-09-13 11:05:33,459 - INFO - Loading plugin 'docling_defaults'
+2025-09-13 11:05:33,459 - INFO - Registered picture descriptions: ['vlm', 'api']
+2025-09-13 11:05:33,471 - INFO - Loading plugin 'docling_defaults'
+2025-09-13 11:05:33,472 - INFO - Registered ocr engines: ['easyocr', 'ocrmac', 'rapidocr', 'tesserocr', 'tesseract']
+2025-09-13 11:05:33,511 - INFO - Accelerator device: 'cpu'
+2025-09-13 11:05:34,912 - INFO - Accelerator device: 'cpu'
+2025-09-13 11:05:36,191 - INFO - Accelerator device: 'cpu'
+2025-09-13 11:05:36,425 - INFO - Processing document 2022_Q1_Earnings_Transcript.pdf
+2025-09-13 11:05:52,115 - INFO - Finished converting document 2022_Q1_Earnings_Transcript.pdf in 18.78 sec.
+2025-09-13 11:05:52,136 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:05:52,137 - INFO - Going to convert document batch...
+2025-09-13 11:05:52,137 - INFO - Processing document 2022_Q2_Earnings_Transcript.pdf
+2025-09-13 11:06:10,538 - INFO - Finished converting document 2022_Q2_Earnings_Transcript.pdf in 18.40 sec.
+2025-09-13 11:06:10,554 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:06:10,555 - INFO - Going to convert document batch...
+2025-09-13 11:06:10,555 - INFO - Processing document 2022_Q3_Earnings_Transcript.pdf
+2025-09-13 11:06:37,704 - INFO - Finished converting document 2022_Q3_Earnings_Transcript.pdf in 27.15 sec.
+2025-09-13 11:06:37,715 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:06:37,716 - INFO - Going to convert document batch...
+2025-09-13 11:06:37,716 - INFO - Processing document 2022_Q4_Earnings_Transcript.pdf
+2025-09-13 11:07:01,196 - INFO - Finished converting document 2022_Q4_Earnings_Transcript.pdf in 23.48 sec.
+2025-09-13 11:07:01,218 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:07:01,219 - INFO - Going to convert document batch...
+2025-09-13 11:07:01,220 - INFO - Processing document 2023-q2-earnings-transcript.pdf
+2025-09-13 11:07:26,462 - INFO - Finished converting document 2023-q2-earnings-transcript.pdf in 25.24 sec.
+2025-09-13 11:07:26,485 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:07:26,486 - INFO - Going to convert document batch...
+2025-09-13 11:07:26,486 - INFO - Processing document 2023-q3-earnings-transcript.pdf
+2025-09-13 11:07:48,654 - INFO - Finished converting document 2023-q3-earnings-transcript.pdf in 22.17 sec.
+2025-09-13 11:07:48,678 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:07:48,679 - INFO - Going to convert document batch...
+2025-09-13 11:07:48,679 - INFO - Processing document 2023-q4-earnings-transcript.pdf
+2025-09-13 11:08:13,224 - INFO - Finished converting document 2023-q4-earnings-transcript.pdf in 24.55 sec.
+2025-09-13 11:08:13,250 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:08:13,251 - INFO - Going to convert document batch...
+2025-09-13 11:08:13,251 - INFO - Processing document 2023_Q1_Earnings_Transcript.pdf
+2025-09-13 11:08:37,113 - INFO - Finished converting document 2023_Q1_Earnings_Transcript.pdf in 23.86 sec.
+2025-09-13 11:08:37,138 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:08:37,139 - INFO - Going to convert document batch...
+2025-09-13 11:08:37,139 - INFO - Processing document 2024-q1-earnings-transcript.pdf
+2025-09-13 11:09:04,037 - INFO - Finished converting document 2024-q1-earnings-transcript.pdf in 26.90 sec.
+2025-09-13 11:09:04,066 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:09:04,067 - INFO - Going to convert document batch...
+2025-09-13 11:09:04,067 - INFO - Processing document 2024-q2-earnings-transcript.pdf
+2025-09-13 11:09:30,719 - INFO - Finished converting document 2024-q2-earnings-transcript.pdf in 26.65 sec.
+2025-09-13 11:09:30,747 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:09:30,748 - INFO - Going to convert document batch...
+2025-09-13 11:09:30,748 - INFO - Processing document 2024-q3-earnings-transcript.pdf
+2025-09-13 11:10:01,552 - INFO - Finished converting document 2024-q3-earnings-transcript.pdf in 30.81 sec.
+2025-09-13 11:10:01,584 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:10:01,586 - INFO - Going to convert document batch...
+2025-09-13 11:10:01,586 - INFO - Processing document 2024-q4-earnings-transcript.pdf
+2025-09-13 11:10:32,277 - INFO - Finished converting document 2024-q4-earnings-transcript.pdf in 30.69 sec.
+2025-09-13 11:10:32,306 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:10:32,307 - INFO - Going to convert document batch...
+2025-09-13 11:10:32,307 - INFO - Processing document 2024q1-alphabet-earnings-release-pdf.pdf
+2025-09-13 11:11:28,792 - INFO - Finished converting document 2024q1-alphabet-earnings-release-pdf.pdf in 56.49 sec.
+2025-09-13 11:11:28,828 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:11:28,829 - INFO - Going to convert document batch...
+2025-09-13 11:11:28,830 - INFO - Processing document 2024q2-alphabet-earnings-release.pdf
+2025-09-13 11:12:22,997 - INFO - Finished converting document 2024q2-alphabet-earnings-release.pdf in 54.17 sec.
+2025-09-13 11:12:23,033 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:12:23,034 - INFO - Going to convert document batch...
+2025-09-13 11:12:23,035 - INFO - Processing document 2024q3-alphabet-earnings-release.pdf
+2025-09-13 11:13:16,831 - INFO - Finished converting document 2024q3-alphabet-earnings-release.pdf in 53.80 sec.
+2025-09-13 11:13:16,868 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:13:16,870 - INFO - Going to convert document batch...
+2025-09-13 11:13:16,870 - INFO - Processing document 2024q4-alphabet-earnings-release.pdf
+2025-09-13 11:14:19,067 - INFO - Finished converting document 2024q4-alphabet-earnings-release.pdf in 62.20 sec.
+2025-09-13 11:14:19,107 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:14:19,109 - INFO - Going to convert document batch...
+2025-09-13 11:14:19,109 - INFO - Processing document 2025-q1-earnings-transcript.pdf
+2025-09-13 11:14:45,060 - INFO - Finished converting document 2025-q1-earnings-transcript.pdf in 25.95 sec.
+2025-09-13 11:14:45,089 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:14:45,090 - INFO - Going to convert document batch...
+2025-09-13 11:14:45,090 - INFO - Processing document 2025-q2-earnings-transcript.pdf
+2025-09-13 11:15:16,545 - INFO - Finished converting document 2025-q2-earnings-transcript.pdf in 31.46 sec.
+2025-09-13 11:15:16,575 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:15:16,576 - INFO - Going to convert document batch...
+2025-09-13 11:15:16,576 - INFO - Processing document 2025q1-alphabet-earnings-release.pdf
+2025-09-13 11:16:06,158 - INFO - Finished converting document 2025q1-alphabet-earnings-release.pdf in 49.58 sec.
+2025-09-13 11:16:06,193 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:16:06,195 - INFO - Going to convert document batch...
+2025-09-13 11:16:06,195 - INFO - Processing document 2025q1-alphabet-earnings-slides.pdf
+/home/mz/.local/lib/python3.12/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  warnings.warn(warn_msg)
+2025-09-13 11:16:26,508 - INFO - Finished converting document 2025q1-alphabet-earnings-slides.pdf in 20.32 sec.
+2025-09-13 11:16:26,526 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:16:26,527 - INFO - Going to convert document batch...
+2025-09-13 11:16:26,527 - INFO - Processing document 2025q2-alphabet-earnings-release.pdf
+2025-09-13 11:17:21,315 - INFO - Finished converting document 2025q2-alphabet-earnings-release.pdf in 54.79 sec.
+2025-09-13 11:17:21,349 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:17:21,351 - INFO - Going to convert document batch...
+2025-09-13 11:17:21,352 - INFO - Processing document 2025q2-alphabet-earnings-slides.pdf
+/home/mz/.local/lib/python3.12/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  warnings.warn(warn_msg)
+2025-09-13 11:17:41,138 - INFO - Finished converting document 2025q2-alphabet-earnings-slides.pdf in 19.79 sec.
+2025-09-13 11:17:41,154 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:17:41,157 - INFO - Going to convert document batch...
+2025-09-13 11:17:41,157 - INFO - Processing document 6 things you can do with Google Photos’ Create tab.pdf
+/home/mz/.local/lib/python3.12/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  warnings.warn(warn_msg)
+2025-09-13 11:17:46,596 - INFO - Finished converting document 6 things you can do with Google Photos’ Create tab.pdf in 5.44 sec.
+2025-09-13 11:17:46,603 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:17:46,605 - INFO - Going to convert document batch...
+2025-09-13 11:17:46,605 - INFO - Processing document AI Mode in Google Search expands to more languages.pdf
+/home/mz/.local/lib/python3.12/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  warnings.warn(warn_msg)
+2025-09-13 11:17:56,179 - INFO - Finished converting document AI Mode in Google Search expands to more languages.pdf in 9.58 sec.
+2025-09-13 11:17:56,186 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:17:56,187 - INFO - Going to convert document batch...
+2025-09-13 11:17:56,187 - INFO - Processing document Alphabet to Present at the Goldman Sachs 2025 Communacopia + Technology Conference - Alphabet Investor Relations.pdf
+2025-09-13 11:17:57,750 - INFO - Finished converting document Alphabet to Present at the Goldman Sachs 2025 Communacopia + Technology Conference - Alphabet Investor Relations.pdf in 1.56 sec.
+2025-09-13 11:17:57,754 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
+2025-09-13 11:17:57,756 - INFO - Going to convert document batch...
+2025-09-13 11:17:57,756 - INFO - Processing document Google's statement on Sept 2025 Search DOJ decision.pdf
+2025-09-13 11:18:00,035 - INFO - Finished converting document Google's statement on Sept 2025 Search DOJ decision.pdf in 2.28 sec.
