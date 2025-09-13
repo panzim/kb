@@ -1,0 +1,14 @@
+Feedback:
+- Suggested additions to Node Types:
+  - Add node type "Online Platform" to represent platforms such as websites or apps mentioned in the document.
+  - Add node type "User Review" if the file content references user-generated content or reviews.
+- Suggested additions to Relationship Types:
+  - Add relationship "HOSTED_ON" between "Product" and "Online Platform".
+  - Add relationship "REVIEWS" between "User" and "Product" if reviews are mentioned.
+- Suggested new properties for existing Node Types or Relationship Types:
+  - Add property "URL" to "Online Platform" node type for storing website/app links.
+  - Add property "Rating" to "User Review" node type.
+  - Add property "DatePublished" to "User Review" or relevant content nodes.
+  - Add property "PlatformName" to "Online Platform" node type.
+
+Using "Google's statement on Sept 2025 Search DOJ decision.md" as additional input sample.

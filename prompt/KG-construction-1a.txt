@@ -1,0 +1,156 @@
+Knowledge Graph Schema Proposal
+
+**1. Node Types**  
+
+- **Company**
+  - Properties: company_id, name, ticker, sector, description, headquarters_location, website
+
+- **Person**
+  - Properties: person_id, name, role(s), affiliation (company), biography
+
+- **Role**
+  - Properties: role_id, title, company_affiliation, start_date, end_date
+
+- **Quarter**
+  - Properties: quarter_id, year, quarter (e.g., Q3), start_date, end_date
+
+- **EarningsCall**
+  - Properties: call_id, date, quarter_id (FK), transcript_url, webcast_url
+
+- **FinancialMetric**
+  - Properties: metric_id, name (e.g., Revenue, Operating Income), value, unit, category (e.g., GAAP, Non-GAAP), description
+
+- **ProductOrService**
+  - Properties: product_id, name, type (e.g., Product, Service), description
+
+- **Segment**
+  - Properties: segment_id, name (e.g., Google Services, Google Cloud, Other Bets), description
+
+- **ProjectOrInitiative**
+  - Properties: project_id, name (e.g., SGE, Bard, Gemini), type (e.g., AI, Marketing, Hardware Launch), description, launch_date
+
+- **Analyst**
+  - Properties: analyst_id, name, affiliation (firm), biography
+
+- **Firm**
+  - Properties: firm_id, name, description, sector
+
+- **Event**
+  - Properties: event_id, name, type (e.g., Product Launch, Conference, Partnership), date, description
+
+- **Question**
+  - Properties: question_id, text, timestamp, asked_by (person_id/FK), sequence_in_call
+
+- **Answer**
+  - Properties: answer_id, text, timestamp, answered_by (person_id/FK), sequence_in_call (corresponding to question)
+
+**2. Relationship Types**
+
+- **HELD_ON**
+  - Start: EarningsCall
+  - End: Quarter
+  - Properties: none
+
+- **PARTICIPATED_IN**
+  - Start: Person
+  - End: EarningsCall
+  - Properties: role_in_call (e.g., Speaker, Operator, Analyst)
+
+- **REPRESENTS**
+  - Start: Analyst
+  - End: Firm
+  - Properties: none
+
+- **HAS_ROLE**
+  - Start: Person
+  - End: Role
+  - Properties: current (boolean), start_date, end_date
+
+- **WORKS_FOR**
+  - Start: Role
+  - End: Company
+  - Properties: none
+
+- **REPORTS_FINANCIALS_FOR**
+  - Start: Company
+  - End: Quarter
+  - Properties: none
+
+- **ANNOUNCES_METRIC**
+  - Start: Person
+  - End: FinancialMetric
+  - Properties: date_announced, context (e.g., "in call", "in press release")
+
+- **METRIC_FOR_SEGMENT**
+  - Start: FinancialMetric
+  - End: Segment
+  - Properties: none
+
+- **METRIC_FOR_PRODUCT_OR_SERVICE**
+  - Start: FinancialMetric
+  - End: ProductOrService
+  - Properties: none
+
+- **COVERS_PRODUCT_OR_SERVICE**
+  - Start: Segment
+  - End: ProductOrService
+  - Properties: none
+
+- **ASSOCIATED_WITH_COMPANY**
+  - Start: ProductOrService / Segment / ProjectOrInitiative
+  - End: Company
+  - Properties: none
+
+- **MENTIONS_PROJECT_OR_INITIATIVE**
+  - Start: Person
+  - End: ProjectOrInitiative
+  - Properties: context (e.g., discussant role, summary)
+
+- **RELATES_TO_EVENT**
+  - Start: ProjectOrInitiative / ProductOrService
+  - End: Event
+  - Properties: relationship_type (e.g., Launched_At, Announced_At, Demonstrated_At)
+
+- **ASKS_QUESTION_TO**
+  - Start: Analyst / Person
+  - End: Person
+  - Properties: question_id, sequence_in_call
+
+- **RECEIVES_ANSWER_FROM**
+  - Start: Question
+  - End: Answer
+  - Properties: answer_id
+
+- **ADDRESSES_SUBJECT**
+  - Start: Question / Answer
+  - End: ProjectOrInitiative / FinancialMetric / ProductOrService / Segment / Event
+  - Properties: subject_description
+
+- **HAS_PARTNER**
+  - Start: Company
+  - End: Company
+  - Properties: project_id (if applicable), event_id (if applicable), start_date, partnership_type, description
+
+- **IS_COMPETITOR_OF**
+  - Start: Company
+  - End: Company
+  - Properties: sector, description
+
+- **OWNED_BY**
+  - Start: Segment / ProductOrService / ProjectOrInitiative
+  - End: Company
+  - Properties: none
+
+- **INCLUDES_PERSON**
+  - Start: Segment / ProjectOrInitiative
+  - End: Person
+  - Properties: role_in_segment / project
+
+- **HAS_EVENT**
+  - Start: EarningsCall / Quarter
+  - End: Event
+  - Properties: relevance (e.g., Discussed, Announced)
+  
+---
+
+This schema provides entities and relationships to capture participants, financial metrics, products/services, strategic initiatives, business segments, Q&A interactions, and the corporate/performance context for scalable, longitudinal knowledge representation across earnings call transcripts.

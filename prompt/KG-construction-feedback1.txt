@@ -1,0 +1,30 @@
+Feedback:
+- Add new Node Type: **Feature**
+  - Properties: feature_id, name (e.g., "Photo to video", "Remix"), description, type (e.g., Generative AI, Editing Tool), launch_date, availability (e.g., regions/countries)
+- Add new Node Type: **Tab**
+  - Properties: tab_id, name (e.g., "Create tab"), description, launch_date, location_within_app
+- Add new Node Type: **Resource**
+  - Properties: resource_id, name, type (e.g., AI Literacy Resource, News Article), description, url, publish_date
+- Add new Relationship Type: **INCLUDES_FEATURE**
+  - Start: Tab
+  - End: Feature
+  - Properties: sequence, description
+- Add new Relationship Type: **FEATURE_USES_MODEL**
+  - Start: Feature
+  - End: ProjectOrInitiative (e.g., Veo 3 as an AI model)
+  - Properties: description
+- Add new Relationship Type: **AVAILABLE_IN**
+  - Start: Feature / Tab
+  - End: ProductOrService
+  - Properties: start_date, region, note
+- Add new Relationship Type: **MENTIONED_IN_RESOURCE**
+  - Start: Resource
+  - End: Node (ProductOrService / ProjectOrInitiative / Feature)
+  - Properties: context, quote
+- Add new property to **ProductOrService**: "features" (list of feature_ids), "tabs" (list of tab_ids)
+- Add new property to **ProjectOrInitiative**: "version" (e.g., "Veo 3")
+- Add new property to **Event**: "associated_products" (list of ProductOrService ids)
+- Add new property to **ProductOrService**: "availability" (regions/countries, with effective dates)
+- Add new property to **ProjectOrInitiative** / **Feature**: "AI_model" (boolean)
+
+Using "AI Mode in Google Search expands to more languages.md" as additional input sample.

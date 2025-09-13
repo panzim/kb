@@ -1,0 +1,192 @@
+**Knowledge Graph Schema Proposal for Earnings Call Transcripts**
+
+---
+
+### 1. **Node Types**
+
+#### 1.1. Company
+- **Properties:**  
+  - `name`  
+  - `ticker_symbol`  
+  - `industry`  
+  - `headquarters`  
+  - `website` 
+
+#### 1.2. Subsidiary/Business Unit
+- **Properties:**  
+  - `name`  
+  - `type` (e.g., segment, brand, division)  
+  - `description`
+
+#### 1.3. Executive
+- **Properties:**  
+  - `name`  
+  - `title`  
+  - `tenure_period`  
+  - `affiliation` (link to Company/Business Unit)  
+
+#### 1.4. Analyst
+- **Properties:**  
+  - `name`  
+  - `affiliation` (e.g., Morgan Stanley)  
+  - `role` (e.g., Analyst, Researcher)
+
+#### 1.5. Operator (Call Moderator)
+- **Properties:**  
+  - `name`  
+
+#### 1.6. FinancialMetric
+- **Properties:**  
+  - `type` (e.g., Revenue, Operating Income, Free Cash Flow, CapEx, Net Income)  
+  - `value`  
+  - `currency`  
+  - `unit` (e.g., USD, millions)  
+  - `GAAP_status` (GAAP, Non-GAAP)  
+  - `notes`
+
+#### 1.7. Quarter (Time Period)
+- **Properties:**  
+  - `name` (e.g., Q3 2023)  
+  - `start_date`  
+  - `end_date`  
+  - `year`  
+
+#### 1.8. Product/Service
+- **Properties:**  
+  - `name` (e.g., YouTube, Google Cloud)  
+  - `category` (e.g., SaaS, Hardware, Advertising)  
+  - `description`  
+  - `launch_date`
+  - `discontinued_date`
+
+#### 1.9. Feature/Initiative
+- **Properties:**  
+  - `name` (e.g., SGE, Bard, Gemini, NFL Sunday Ticket)  
+  - `type` (e.g., AI Model, Feature, Partnership, Campaign)  
+  - `description`  
+  - `launch_date`  
+  - `status` (e.g., experimental, in-market)
+
+#### 1.10. Customer/Partner
+- **Properties:**  
+  - `name`  
+  - `type` (e.g., partner, customer)  
+  - `industry`
+
+#### 1.11. Event (Earnings Call)
+- **Properties:**  
+  - `name` (e.g., Alphabet Q3 2023 Earnings Call)  
+  - `date`  
+  - `location` (if applicable)  
+  - `transcript_url`
+
+#### 1.12. Statement
+- **Properties:**  
+  - `speaker_name`  
+  - `timestamp`  
+  - `content`  
+  - `type` (e.g., prepared remarks, Q&A, response)
+
+
+---
+
+### 2. **Relationship Types**
+
+#### 2.1. REPORTS_FINANCIALS_FOR
+- **Start:** Company  
+- **End:** Quarter  
+- **Properties:** event (e.g., earnings call id)
+
+#### 2.2. HAS_EXECUTIVE
+- **Start:** Company or Business Unit  
+- **End:** Executive  
+- **Properties:** role (e.g., CEO, CFO), period (dates active)
+
+#### 2.3. REPRESENTS
+- **Start:** Analyst  
+- **End:** Company (employing analyst)  
+- **Properties:** None
+
+#### 2.4. PARTICIPATES_IN
+- **Start:** Executive / Analyst / Operator
+- **End:** Event (Earnings Call)
+- **Properties:** role_in_event (e.g., speaker, moderator)
+
+#### 2.5. DISCUSSES_METRIC
+- **Start:** Statement  
+- **End:** FinancialMetric  
+- **Properties:** context (e.g., forecast, actual, YoY)
+
+#### 2.6. RELATES_TO_QUARTER
+- **Start:** FinancialMetric / Statement / Feature  
+- **End:** Quarter  
+- **Properties:** None
+
+#### 2.7. DISCUSSES_PRODUCT
+- **Start:** Statement  
+- **End:** Product/Service  
+- **Properties:** context (e.g., growth, launch, features)
+
+#### 2.8. MENTIONS_FEATURE
+- **Start:** Statement  
+- **End:** Feature/Initiative  
+- **Properties:** context (e.g., launch, customer feedback)
+
+#### 2.9. RELATES_TO_PARTNER
+- **Start:** Feature/Initiative or Statement  
+- **End:** Customer/Partner  
+- **Properties:** context (e.g., partnership, innovation, feedback)
+
+#### 2.10. OWNS_SUBSIDIARY
+- **Start:** Company  
+- **End:** Subsidiary/Business Unit  
+- **Properties:** None
+
+#### 2.11. DELIVERS_STATEMENT
+- **Start:** Executive / Analyst / Operator  
+- **End:** Statement  
+- **Properties:** position_in_sequence (e.g., opening, prepared remarks, Q&A, closing)
+
+#### 2.12. ASKS_QUESTION_TO
+- **Start:** Analyst  
+- **End:** Executive  
+- **Properties:** question_text, response_reference (link to response Statement node)
+
+#### 2.13. ANSWERS_QUESTION
+- **Start:** Executive  
+- **End:** Analyst  
+- **Properties:** answer_text, question_reference (link to corresponding question Statement node)
+
+#### 2.14. ASSOCIATED_WITH_EVENT
+- **Start:** FinancialMetric / Product / Feature  
+- **End:** Event (Earnings Call)  
+- **Properties:** None
+
+#### 2.15. UTILIZES_PRODUCT
+- **Start:** Customer/Partner  
+- **End:** Product  
+- **Properties:** purpose, testimonial (if present in transcript)
+
+---
+
+### 3. **Example Schema Visualization** (simplified)
+
+```
+[Company] --HAS_EXECUTIVE--> [Executive]
+[Company] --OWNS_SUBSIDIARY--> [Business Unit]
+[Executive] --DELIVERS_STATEMENT--> [Statement]
+[Analyst] --ASKS_QUESTION_TO--> [Executive]
+[Statement] --DISCUSSES_METRIC--> [FinancialMetric]
+[Statement] --DISCUSSES_PRODUCT--> [Product/Service]
+[Statement] --MENTIONS_FEATURE--> [Feature/Initiative]
+[FinancialMetric] --RELATES_TO_QUARTER--> [Quarter]
+[Product/Service] --ASSOCIATED_WITH_EVENT--> [Event]
+[Feature/Initiative] --RELATES_TO_PARTNER--> [Customer/Partner]
+[Customer/Partner] --UTILIZES_PRODUCT--> [Product/Service]
+```
+
+---
+
+**Note:**  
+This schema can be expanded vertically (adding more attributes/properties to each node/relationship) or horizontally (incorporating more granular entity types, such as `Segment` or `Geography`), depending on data availability in transcripts and future requirements.  
+This structure is designed to support querying financial trends, the timeline of AI/product rollouts, relationship mapping between executives/analysts, and parsing Q&A details for knowledge discovery.

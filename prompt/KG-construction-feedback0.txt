@@ -1,0 +1,30 @@
+Feedback:
+- Add Node Type: **Feature**
+  - Properties: feature_id, name (e.g., Photo to video, Remix, Create tab), type (e.g., Generative AI, Editing Tool, UI Element), description, launch_date, availability (e.g., country/region)
+- Add Node Type: **Model**
+  - Properties: model_id, name (e.g., Veo 3), version, description, release_date, model_type (e.g., Video Generation)
+- Add Property to **ProductOrService**: features (list of Feature node references)
+- Add Property to **ProductOrService**: models_used (list of Model node references)
+- Add Relationship Type: **USES_MODEL**
+  - Start: Feature / ProductOrService
+  - End: Model
+  - Properties: use_case, integration_date
+- Add Relationship Type: **HAS_FEATURE**
+  - Start: ProductOrService
+  - End: Feature
+  - Properties: feature_status (e.g., available, experimental), launch_date, region
+- Add Relationship Type: **COMBINES_WITH**
+  - Start: Feature
+  - End: Feature
+  - Properties: combination_type, description
+- Add Relationship Type: **DEMONSTRATED_IN**
+  - Start: Feature / Model
+  - End: Event
+  - Properties: demonstration_type, date
+- Add Property to **Event**: related_product_or_service (ProductOrService node reference)
+- Add Property to **ProductOrService**: tab_structure (e.g., available tabs, default tab, description of tabs)
+- Add Node Type: **Resource**
+  - Properties: resource_id, name, type (e.g., Literacy Resource), description, url, release_date
+
+
+Using "6 things you can do with Google Photos’ Create tab.md" as additional input sample.
