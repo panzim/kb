@@ -17,3 +17,4 @@ sacrebleu
 rapidfuzz
 flashrank
 markdown-it-py
+rerankers

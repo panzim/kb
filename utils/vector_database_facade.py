@@ -77,6 +77,7 @@ class VectorDatabaseFacade:
 if __name__ == '__main__':
     from document_loader import DocumentLoader
     doc_loader = DocumentLoader()
+    DATABASE_PATH = os.getenv('DATABASE_PATH', os.path.join(os.path.curdir, 'db'))
     vector_database = VectorDatabaseFacade(
         database_directory=os.path.join('/Users/pav/lab/LLM/krisp-hackaton', "db"),
         embedding_model=doc_loader.model

@@ -20,13 +20,14 @@ OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 OPENAI_MODEL = "gpt-4o-mini" # 'gpt-5-nano'
 if not OPENAI_API_KEY:
     raise RuntimeError("OPENAI_API_KEY not found")
+DATABASE_PATH = os.getenv('DATABASE_PATH', os.path.join(os.path.curdir, 'db'))
 
 app = FastAPI()
 openai_client = openai.Client(api_key=OPENAI_API_KEY)
 logger.warning("RAG loading started")
 document_loader = DocumentLoader()
 vector_database_facade = VectorDatabaseFacade(
-    database_directory=os.path.join('/Users/pav/lab/LLM/krisp-hackaton', "db"),
+    database_directory=DATABASE_PATH,
     embedding_model=document_loader.model
 )
 vector_database_facade.load()
