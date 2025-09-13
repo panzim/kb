@@ -16,3 +16,4 @@ ragas
 sacrebleu
 rapidfuzz
 flashrank
+markdown-it-py

@@ -1,0 +1,1 @@
+uvicorn utils.basic_rag_service:app  --port=8044 --workers=1 --loop=asyncio

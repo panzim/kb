@@ -5,10 +5,12 @@ from fastapi.responses import JSONResponse, FileResponse
 from onnx.reference.ops.op_optional import Optional
 from pydantic import BaseModel
 import os
+import requests
 
 app = FastAPI()
 
 DB_FILE = os.getenv("DB_FILE", "chat.db")
+BASIC_RAG_URL = os.getenv("BASIC_RAG_URL", "http://localhost:8044/chat")
 KRISP_SESSION = "krisp-session"
 ROLE_USER = "user"
 ROLE_BOT = "bot"
@@ -36,7 +38,7 @@ def init_db():
 
 init_db()
 
-class ChatRequest(BaseModel):
+class UserMessageRequest(BaseModel):
     user_message: str
 
 # --- Helpers ---
@@ -96,12 +98,13 @@ def get_history(request: Request):
     return get_messages(krisp_session)
 
 @app.post("/chat")
-def chat(request: Request, chatRequest: ChatRequest):
+def chat(request: Request, userMessageRequest: UserMessageRequest):
     krisp_session = request.cookies.get(KRISP_SESSION)
     if not krisp_session or not session_exists(krisp_session):
         raise HTTPException(status_code=401, detail="No valid session")
 
-    add_message(krisp_session, ROLE_USER, chatRequest.user_message)
-    reply = f"{chatRequest.user_message} 🤔" # TODO
+    add_message(krisp_session, ROLE_USER, userMessageRequest.user_message)
+    chat_request = {"messages": get_messages(krisp_session)}
+    reply = requests.post(BASIC_RAG_URL, json=chat_request).json()['reply']
     add_message(krisp_session, ROLE_BOT, reply)
     return {"reply": reply}
