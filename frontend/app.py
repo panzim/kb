@@ -137,5 +137,5 @@ def chat(request: Request, userMessageRequest: UserMessageRequest):
         error = str(ex)
         if len(error) > 200:
             return {"error": "Server error: " + error[:200] + "..."}
-        else
+        else:
             return {"error": "Server error: " + error}
