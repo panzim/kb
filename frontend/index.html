@@ -140,6 +140,8 @@
           const data = await res.json();
           if (data.reply) {
             addMessage(data.reply, "bot");
+          } else if (data.error) {
+            addMessage("❌ " + data.error, "bot", true);
           } else {
             addMessage("Server returned no reply", "bot", true);
           }

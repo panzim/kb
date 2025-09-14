@@ -126,6 +126,16 @@ def chat(request: Request, userMessageRequest: UserMessageRequest):
 
     add_message(krisp_session, ROLE_USER, userMessageRequest.user_message)
     chat_request = {"messages": get_messages(krisp_session)}
-    reply = requests.post(BASIC_RAG_URL, json=chat_request).json()['reply']
-    add_message(krisp_session, ROLE_BOT, reply)
-    return {"reply": reply}
+    try:
+        response = requests.post(BASIC_RAG_URL, json=chat_request).json()
+        if 'reply' in response:
+            add_message(krisp_session, ROLE_BOT, response['reply'])
+            return {"reply": response['reply']}
+        else:
+            return {}
+    except Exception as ex:
+        error = str(ex)
+        if len(error) > 200:
+            return {"error": "Server error: " + error[:200] + "..."}
+        else
+            return {"error": "Server error: " + error}
