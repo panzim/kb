@@ -111,11 +111,15 @@ def chat(request: Request, chatRequest: ChatRequest):
 
     if docs_with_scores:
         docs = [d for d,_ in docs_with_scores]
+        sources = []
+        for d in docs:
+            if d.metadata.get('source') and not (d.metadata.get('source')  in sources):
+                sources.append(d.metadata.get('source') )
         logger.info("Documents length from RAG: %d" % sum([len(d.page_content) for d in docs]))
         t = time.time()
         reply: str = chat_with_openai(messages=chatRequest.messages, docs=docs)
         logger.info("[BENCHMARK] OpenAI request: %.2f" % (time.time() - t))
-        return {"reply": reply}
+        return {"reply": reply, "sources": sources}
     else:
         return {}
 

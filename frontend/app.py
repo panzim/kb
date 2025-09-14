@@ -136,7 +136,8 @@ def chat(request: Request, userMessageRequest: UserMessageRequest):
         logger.info("[BENCHMARK] Basic RAG response: %.2f" % (time.time() - 2))
         if 'reply' in response:
             add_message(krisp_session, ROLE_BOT, response['reply'])
-            return {"reply": response['reply']}
+            sources = sources = response.get('sources') or []
+            return {"reply": response['reply'], "sources": sources}
         else:
             return {}
     except Exception as ex:

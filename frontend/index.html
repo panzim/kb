@@ -50,7 +50,8 @@
 
     let messages = [];
 
-    function addMessage(text, sender = "user", isError = false) {
+    function addMessage(text, sender = "user", isError = false, sources = null) {
+      if (!sources) sources = []
       const wrapper = document.createElement("div");
       wrapper.className = `flex items-start gap-3 ${sender === "user" ? "flex-row-reverse" : ""}`;
 
@@ -70,6 +71,20 @@
 
 
       wrapper.appendChild(bubble);
+      if (sender === "bot" && !isError && sources && sources.length > 0) {
+        const srcBox = document.createElement("div");
+        srcBox.className =
+          "max-w-xs lg:max-w-2xl text-xs text-gray-500 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2";
+
+        srcBox.innerHTML = `
+          <p class="font-medium text-gray-600 mb-1">📂 Sources:</p>
+          <ul class="list-disc list-inside space-y-1">
+            ${sources.map(s => `<li>${md.renderInline(s)}</li>`).join("")}
+          </ul>
+        `;
+        wrapper.appendChild(srcBox);
+      }
+
       chat.appendChild(wrapper);
       chat.scrollTop = chat.scrollHeight;
 
@@ -147,7 +162,7 @@
         if (res.ok) {
           const data = await res.json();
           if (data.reply) {
-            addMessage(data.reply, "bot");
+            addMessage(data.reply, "bot", false, data.sources || []);
           } else if (data.error) {
             addMessage("❌ " + data.error, "bot", true);
           } else {
