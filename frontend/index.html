@@ -96,7 +96,7 @@
         if (!document.cookie.includes("krisp-session")) {
           const res = await fetch("/session", { method: "POST", credentials: "include"});
           if (!res.ok) {
-            addMessage("Failed to start session", "bot", true);
+            addMessage("❌ Failed to start session", "bot", true);
           }
         }
 
@@ -105,10 +105,10 @@
           const history = await res.json();
           history.forEach((m) => addMessage(m.text, m.sender));
         } else {
-          addMessage("Failed to load history", "bot", true);
+          addMessage("❌ Failed to load history", "bot", true);
         }
       } catch (err) {
-        addMessage("Error initializing chat: " + err.message, "bot", true);
+        addMessage("❌ Error initializing chat: " + err.message, "bot", true);
       }
     }
 
@@ -121,14 +121,19 @@
 
       const spinner = addSpinner();
 
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30s
+
       try {
         const res = await fetch("/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
           body: JSON.stringify({ "user_message": text }),
+          signal: controller.signal,
         });
 
+        clearTimeout(timeoutId);
         spinner.remove();
 
         if (res.ok) {
@@ -140,11 +145,16 @@
           }
         } else {
           const errText = await res.text();
-          addMessage(`Error ${res.status}: ${errText}`, "bot", true);
+          addMessage(`❌ Error ${res.status}: ${errText}`, "bot", true);
         }
       } catch (err) {
+        clearTimeout(timeoutId);
         spinner.remove();
-        addMessage("Error: " + err.message, "bot", true);
+        if (err.name === "AbortError") {
+          addMessage("❌ No response from server", "bot", true);
+        } else {
+          addMessage("❌ Error: " + err.message, "bot", true);
+        }
       }
     }
 

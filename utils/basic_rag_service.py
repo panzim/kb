@@ -8,7 +8,6 @@ from pydantic import BaseModel
 from langchain_core.documents import Document
 import openai
 
-from frontend.app import logpath
 from utils.vector_database_facade import VectorDatabaseFacade
 from utils.document_loader import DocumentLoader
 
@@ -24,8 +23,8 @@ formatter = logging.Formatter(
 console_handler = logging.StreamHandler()
 console_handler.setFormatter(formatter)
 
-logpath = logpath
-file_handler = logging.FileHandler(os.path.join(os.path.curdir, 'logs', 'basic_rag_service.log'), mode="a")
+logpath = os.path.join(os.path.curdir, 'logs', 'basic_rag_service.log')
+file_handler = logging.FileHandler(logpath, mode="a")
 file_handler.setFormatter(formatter)
 
 # Root logger config
