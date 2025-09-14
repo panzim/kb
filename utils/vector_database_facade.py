@@ -79,7 +79,7 @@ if __name__ == '__main__':
     doc_loader = DocumentLoader()
     DATABASE_PATH = os.getenv('DATABASE_PATH', os.path.join(os.path.curdir, 'db'))
     vector_database = VectorDatabaseFacade(
-        database_directory=os.path.join('/Users/pav/lab/LLM/krisp-hackaton', "db"),
+        database_directory=DATABASE_PATH,
         embedding_model=doc_loader.model
     )
     vector_database.load()

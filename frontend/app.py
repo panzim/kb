@@ -6,6 +6,27 @@ from onnx.reference.ops.op_optional import Optional
 from pydantic import BaseModel
 import os
 import requests
+import logging
+
+logger = logging.getLogger("uvicorn")
+
+formatter = logging.Formatter(
+    fmt="%(asctime)s.%(msecs)03d [%(levelname)s] %(name)s: %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(formatter)
+
+logpath = os.path.join(os.path.curdir, '..', 'logs', 'frontend.log')
+file_handler = logging.FileHandler(logpath, mode="a")
+file_handler.setFormatter(formatter)
+
+logging.basicConfig(level=logging.INFO, handlers=[console_handler, file_handler])
+
+handler = logging.getLogger("uvicorn").handlers[0]
+handler.setFormatter(formatter)
+logging.getLogger("uvicorn").handlers.append(file_handler)
 
 app = FastAPI()
 

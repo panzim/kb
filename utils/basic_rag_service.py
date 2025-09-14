@@ -8,11 +8,32 @@ from pydantic import BaseModel
 from langchain_core.documents import Document
 import openai
 
-import logging
-logger = logging.getLogger("uvicorn")
-
+from frontend.app import logpath
 from utils.vector_database_facade import VectorDatabaseFacade
 from utils.document_loader import DocumentLoader
+
+import logging
+
+logger = logging.getLogger("uvicorn")
+
+formatter = logging.Formatter(
+    fmt="%(asctime)s.%(msecs)03d [%(levelname)s] %(name)s: %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(formatter)
+
+logpath = logpath
+file_handler = logging.FileHandler(os.path.join(os.path.curdir, 'logs', 'basic_rag_service.log'), mode="a")
+file_handler.setFormatter(formatter)
+
+# Root logger config
+logging.basicConfig(level=logging.INFO, handlers=[console_handler, file_handler])
+
+handler = logging.getLogger("uvicorn").handlers[0]
+handler.setFormatter(formatter)
+logging.getLogger("uvicorn").handlers.append(file_handler)
 
 load_dotenv()
 
