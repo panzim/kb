@@ -80,7 +80,7 @@ def build_chat_messages(messages: List[Message], docs: List[Document]) -> List[D
         )
         openai_messages.append({
             "role": "system",
-            "content": f"Knowledge base context:\n{context_text}\n\nUse this to help answer the user. Respond in plaintext."
+            "content": f"Knowledge base context:\n{context_text}\n\nUse this to help answer the user."
         })
 
     return openai_messages
