@@ -8,6 +8,8 @@ from langchain_core.documents import Document
 from rerankers.results import Result
 from sentence_transformers import SentenceTransformer
 from tqdm import tqdm
+import logging
+import time
 
 try:
     from utils.utils import pickle_read, pickle_write
@@ -22,6 +24,7 @@ class VectorDatabaseFacade:
         self.documents: Dict[int, Document] = None
         self.ranker = Ranker(model_name="ms-marco-MiniLM-L-12-v2", cache_dir=database_directory)
         #self.ranker = Ranker(max_length=128)
+        self.logger = logging.getLogger("uvicorn")
 
     def save_documents(self, docs: Iterator[Document], autosave: bool = True):
         if self.index is None:
@@ -49,9 +52,11 @@ class VectorDatabaseFacade:
         self.documents = pickle_read(os.path.join(self.database_directory, "documents"))
 
     def query(self, query: str, min_score: float = 0.01, limit: int = 10) -> Iterator[Tuple[Document, float]]:
+        t1 = time.time()
         query_embedding = self.embedding_model.encode([query], show_progress_bar=False)
         # query_embedding = query_embedding / np.linalg.norm(query_embedding, axis=1, keepdims=True)
         scores, indexies = self.index.search(query_embedding, k=100)
+        self.logger.info("[BENCHMARK] Vector database cosine search: %.2f" % (time.time() - t1))
 
         # Rerank
         passages = []
@@ -64,7 +69,9 @@ class VectorDatabaseFacade:
                 }
             )
 
+        t2 = time.time()
         runker_results: List[Result] = self.ranker.rerank(RerankRequest(query=query, passages=passages))
+        self.logger.info("[BENCHMARK] Reranker: %.2f" % (time.time() - t2))
         results = []
         for i, result in enumerate(runker_results):
             if (i > 0 and result['score'] < min_score) or i > limit:

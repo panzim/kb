@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import time
 from typing import List, Dict
 
 from dotenv import load_dotenv
@@ -111,7 +112,9 @@ def chat(request: Request, chatRequest: ChatRequest):
     if docs_with_scores:
         docs = [d for d,_ in docs_with_scores]
         logger.info("Documents length from RAG: %d" % sum([len(d.page_content) for d in docs]))
+        t = time.time()
         reply: str = chat_with_openai(messages=chatRequest.messages, docs=docs)
+        logger.info("[BENCHMARK] OpenAI request: %.2f" % (time.time() - t))
         return {"reply": reply}
     else:
         return {}
