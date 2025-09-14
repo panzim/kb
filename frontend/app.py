@@ -1,3 +1,4 @@
+import time
 import uuid
 import sqlite3
 from fastapi import FastAPI, Request, Response, Cookie, HTTPException
@@ -124,10 +125,15 @@ def chat(request: Request, userMessageRequest: UserMessageRequest):
     if not krisp_session or not session_exists(krisp_session):
         raise HTTPException(status_code=401, detail="No valid session")
 
+    t1 = time.time()
     add_message(krisp_session, ROLE_USER, userMessageRequest.user_message)
     chat_request = {"messages": get_messages(krisp_session)}
+    logger.info("[BENCHMARK] database read write: %.2f" % (time.time() - t1))
+
+    t2 = time.time()
     try:
         response = requests.post(BASIC_RAG_URL, json=chat_request).json()
+        logger.info("[BENCHMARK] Basic RAG response: %.2f" % (time.time() - 2))
         if 'reply' in response:
             add_message(krisp_session, ROLE_BOT, response['reply'])
             return {"reply": response['reply']}
@@ -135,6 +141,7 @@ def chat(request: Request, userMessageRequest: UserMessageRequest):
             return {}
     except Exception as ex:
         error = str(ex)
+        logger.info("[BENCHMARK] Basic RAG error: %.2f" % (time.time() - 2))
         if len(error) > 200:
             return {"error": "Server error: " + error[:200] + "..."}
         else:
