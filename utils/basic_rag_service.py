@@ -112,7 +112,8 @@ def chat(request: Request, chatRequest: ChatRequest):
     if docs_with_scores:
         docs = [d for d,_ in docs_with_scores]
         sources = []
-        for d in docs:
+        for d, score in docs_with_scores:
+            logger.info("Documents %s scores: %.4f" % (d.metadata.get('source'), score))
             if d.metadata.get('source') and not (d.metadata.get('source')  in sources):
                 sources.append(d.metadata.get('source') )
         logger.info("Documents length from RAG: %d" % sum([len(d.page_content) for d in docs]))
