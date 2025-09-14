@@ -22,9 +22,10 @@ class VectorDatabaseFacade:
         self.embedding_model = embedding_model
         self.index: faiss.IndexFlatIP = None # (fine_splitter._model[1].word_embedding_dimension)
         self.documents: Dict[int, Document] = None
-        self.ranker = Ranker(model_name="ms-marco-MiniLM-L-12-v2", cache_dir=database_directory)
-        #self.ranker = Ranker(max_length=128)
+        #self.ranker = Ranker(model_name="ms-marco-MiniLM-L-12-v2", cache_dir=database_directory)
+        self.ranker = Ranker(max_length=1024, cache_dir=database_directory)
         self.logger = logging.getLogger("uvicorn")
+        self.logger.info("Reranker dir: %s, llm: %s" % (self.ranker.model_dir, self.ranker.llm_model))
 
     def save_documents(self, docs: Iterator[Document], autosave: bool = True):
         if self.index is None:
