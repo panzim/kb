@@ -1,0 +1,205 @@
+Processing file: /home/mz/k/KB/text-kb/2022_Q1_Earnings_Transcript.md
+
+--- Extracting Participants and Roles ---
+Creating nodes for: Jim Friedland, Director Investor Relations, Alphabet
+Creating nodes for: Sundar Pichai, CEO Alphabet and Google, Google
+Creating nodes for: We also launched the next wave of innovation in Google Docs with smart canvas, including, Alphabet
+Creating nodes for: Philipp Schindler, SVP and CBO, Google, Google
+Creating nodes for: Ruth Porat, CFO Alphabet and Google, Google
+Creating nodes for: In terms of outlook by segment, for Google Services, Google
+
+--- Extracting Analysts and Firms ---
+Creating nodes for Analyst: Brian Nowak, Firm: Morgan Stanley. Your line is now open
+Creating nodes for Analyst: Eric Sheridan, Firm: Goldman Sachs
+Creating nodes for Analyst: Doug Anmuth, Firm: JP Morgan
+Creating nodes for Analyst: Justin Post, Firm: Bank of America Merrill Lynch
+Creating nodes for Analyst: Mark Mahaney, Firm: Evercore ISI
+Creating nodes for Analyst: Michael Nathanson, Firm: MoffettNathanson
+Creating nodes for Analyst: Brent Thill, Firm: Jefferies
+Creating nodes for Analyst: Stephen Ju, Firm: Credit Suisse
+Creating nodes for Analyst: Dan Salmon, Firm: BMO Capital Markets
+Creating nodes for Analyst: Jim Friedland, Firm: Director of Investor Relations
+
+--- Extracting Questions and Answers ---
+Creating Question node for: Brian Nowak
+Creating Answer node for: Ruth Porat
+Linking Answer to previous Question
+Creating Answer node for: Philipp Schindler
+Linking Answer to previous Question
+Creating Question node for: Brian Nowak
+Creating Question node for: Eric Sheridan
+Creating Answer node for: Ruth Porat
+Linking Answer to previous Question
+Creating Answer node for: Philipp Schindler
+Linking Answer to previous Question
+Creating Question node for: Doug Anmuth
+Creating Answer node for: Ruth Porat
+Linking Answer to previous Question
+Creating Question node for: Doug Anmuth
+Creating Question node for: Justin Post
+Creating Answer node for: Ruth Porat
+Linking Answer to previous Question
+Creating Answer node for: Sundar Pichai
+Linking Answer to previous Question
+Creating Question node for: Justin Post
+Creating Question node for: Mark Mahaney
+Creating Answer node for: Ruth Porat
+Linking Answer to previous Question
+Creating Question node for: Mark Mahaney
+Creating Question node for: Michael Nathanson
+Creating Answer node for: Philipp Schindler
+Linking Answer to previous Question
+Creating Answer node for: Ruth Porat
+Linking Answer to previous Question
+Creating Question node for: Michael Nathanson
+Creating Question node for: Brent Thill
+Creating Answer node for: Sundar Pichai
+Linking Answer to previous Question
+Creating Question node for: Brent Thill
+Creating Question node for: Stephen Ju
+Creating Answer node for: Sundar Pichai
+Linking Answer to previous Question
+Creating Question node for: Stephen Ju
+Creating Question node for: Dan Salmon
+Creating Answer node for: Philipp Schindler
+Linking Answer to previous Question
+Creating Answer node for: Ruth Porat
+Linking Answer to previous Question
+Creating Question node for: Dan Salmon
+Creating Question node for: Jim Friedland
+
+--- Finding speakers and the metrics they announced ---
+
+--- Extracting Financial Metrics for Jim Friedland ---
+
+--- Extracting Financial Metrics for Sundar Pichai ---
+
+--- Extracting Financial Metrics for We also launched the next wave of innovation in Google Docs with smart canvas ---
+
+--- Extracting Financial Metrics for Philipp Schindler ---
+
+--- Extracting Financial Metrics for Ruth Porat ---
+Creating FinancialMetric: Consolidated Revenues, Value: $68.0, Unit: billion
+Creating relationship: (Ruth Porat)-[:ANNOUNCES_METRIC]->(Consolidated Revenues)
+Creating FinancialMetric: Our total cost of revenues, Value: $29.6, Unit: billion
+Creating relationship: (Ruth Porat)-[:ANNOUNCES_METRIC]->(Our total cost of revenues)
+Creating FinancialMetric: Operating expenses, Value: $18.3, Unit: billion
+Creating relationship: (Ruth Porat)-[:ANNOUNCES_METRIC]->(Operating expenses)
+Creating FinancialMetric: Operating income, Value: $20.1, Unit: billion
+Creating relationship: (Ruth Porat)-[:ANNOUNCES_METRIC]->(Operating income)
+Creating FinancialMetric: Net income, Value: $16.4, Unit: billion
+Creating relationship: (Ruth Porat)-[:ANNOUNCES_METRIC]->(Net income)
+Creating FinancialMetric: Google Services Revenues, Value: $61.5, Unit: billion
+Creating relationship: (Ruth Porat)-[:ANNOUNCES_METRIC]->(Google Services Revenues)
+Creating FinancialMetric: Other Revenues, Value: $6.8, Unit: billion
+Creating relationship: (Ruth Porat)-[:ANNOUNCES_METRIC]->(Other Revenues)
+Creating FinancialMetric: TAC, Value: $12, Unit: billion
+Creating relationship: (Ruth Porat)-[:ANNOUNCES_METRIC]->(TAC)
+Creating FinancialMetric: Google Services Operating income, Value: $22.9, Unit: billion
+Creating relationship: (Ruth Porat)-[:ANNOUNCES_METRIC]->(Google Services Operating income)
+
+--- Extracting Financial Metrics for In terms of outlook by segment ---
+
+--- Extracting Named Entities (Products, Segments, Projects) ---
+Creating node for Segment: Cloud, associated with Google
+Creating node for ProductOrService: YouTube, associated with Alphabet
+Creating node for ProductOrService: Search, associated with Google
+Creating node for ProductOrService: Google Search, associated with Google
+Creating node for ProjectOrInitiative: Shorts, associated with Google
+Creating node for ProductOrService: Chrome, associated with Google
+Creating node for ProductOrService: Android, associated with Google
+Creating node for ProjectOrInitiative: Mandiant, associated with Alphabet
+Creating node for Segment: Google Cloud, associated with Google
+Creating node for ProductOrService: Google Meet, associated with Google
+Creating node for ProductOrService: Google Docs, associated with Google
+Creating node for ProductOrService: Gmail, associated with Google
+Creating node for ProjectOrInitiative: Waymo, associated with Alphabet
+Creating node for ProductOrService: Maps, associated with Google
+Creating node for Segment: Google Services, associated with Google
+Creating node for ProjectOrInitiative: Performance Max, associated with Google
+Creating node for ProjectOrInitiative: ATT, associated with Google
+Creating node for ProjectOrInitiative: DMA, associated with Google
+Creating node for ProductOrService: Google Pay, associated with Google
+Creating node for ProductOrService: Google Analytics, associated with Google
+Processing file: /home/mz/k/KB/text-kb/2022_Q2_Earnings_Transcript.md
+
+--- Extracting Participants and Roles ---
+Creating nodes for: Jim Friedland, Director Investor Relations, Alphabet
+Creating nodes for: Sundar Pichai, CEO Alphabet and Google, Google
+Creating nodes for: O in May, I talked about two key ways we move that mission forward, Alphabet
+Creating nodes for: Philipp Schindler, SVP and CBO, Google, Google
+Creating nodes for: As we continue to help advertisers manage through uncertainty, I would point out three key highlights for YouTube, Alphabet
+Creating nodes for: Ruth Porat, CFO Alphabet and Google, Google
+
+--- Extracting Analysts and Firms ---
+Creating nodes for Analyst: Doug Anmuth, Firm: J.P. Morgan
+Creating nodes for Analyst: Brian Nowak, Firm: Morgan Stanley
+Creating nodes for Analyst: Eric Sheridan, Firm: Goldman Sachs
+Creating nodes for Analyst: Michael Nathanson, Firm: MoffettNathanson
+Creating nodes for Analyst: But in the end, Firm: our main goal is on delivering great experiences for our users and driving incremental ROI for our advertisers and then making them successful across all this big universe of sectors I just talked about. And I'm positive that budgets should continue to move our way as long as we stay focused on this one.
+
+Operator
+Creating nodes for Analyst: Justin Post, Firm: Bank of America Merrill Lynch
+Creating nodes for Analyst: Brent Thill, Firm: Jefferies
+Creating nodes for Analyst: Mark Mahaney, Firm: Evercore ISI
+Creating nodes for Analyst: Colin Sebastian, Firm: Baird
+Creating nodes for Analyst: Ross Sandler, Firm: Barclays
+Creating nodes for Analyst: Jim Friedland, Firm: Director Investor Relations
+
+--- Extracting Questions and Answers ---
+Creating Question node for: Doug Anmuth
+Creating Question node for: Brian Nowak
+Creating Question node for: Brian Nowak
+Creating Question node for: Brian Nowak
+Creating Answer node for: Sundar Pichai
+Linking Answer to previous Question
+Creating Question node for: Brian Nowak
+Creating Question node for: Eric Sheridan
+Creating Answer node for: Ruth Porat
+Linking Answer to previous Question
+Creating Answer node for: Philipp Schindler
+Linking Answer to previous Question
+Creating Question node for: Michael Nathanson
+Creating Answer node for: Sundar Pichai
+Linking Answer to previous Question
+Creating Answer node for: Ruth Porat
+Linking Answer to previous Question
+Creating Answer node for: Philipp Schindler
+Linking Answer to previous Question
+Creating Question node for: Justin Post
+Creating Answer node for: Sundar Pichai
+Linking Answer to previous Question
+Creating Answer node for: Ruth Porat
+Linking Answer to previous Question
+Creating Question node for: Justin Post
+Creating Question node for: Brent Thill
+Creating Answer node for: Ruth Porat
+Linking Answer to previous Question
+Creating Question node for: Mark Mahaney
+Creating Answer node for: Philipp Schindler
+Linking Answer to previous Question
+Creating Question node for: Mark Mahaney
+Creating Question node for: Colin Sebastian
+Creating Answer node for: Sundar Pichai
+Linking Answer to previous Question
+Creating Question node for: Colin Sebastian
+Creating Question node for: Ross Sandler
+Creating Answer node for: Philipp Schindler
+Linking Answer to previous Question
+Creating Question node for: Jim Friedland
+
+--- Finding speakers and the metrics they announced ---
+
+--- Extracting Financial Metrics for Jim Friedland ---
+
+--- Extracting Financial Metrics for Sundar Pichai ---
+
+--- Extracting Financial Metrics for O in May ---
+
+--- Extracting Financial Metrics for Philipp Schindler ---
+
+--- Extracting Financial Metrics for As we continue to help advertisers manage through uncertainty ---
+
+--- Extracting Financial Metrics for Ruth Porat ---
+Creating FinancialMetric: Consolidated Revenues, Value: $69.7, Unit: billion
+An error occurred: {code: Neo.ClientError.Schema.ConstraintValidationFailed} {message: Node(66) already exists with label `FinancialMetric` and property `name` = 'Consolidated Revenues'}

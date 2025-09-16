@@ -1,0 +1,5 @@
+```
+pip install --break-system-packages spacy
+python3 -m spacy download en_core_web_sm --break-system-packages
+```
+in my Ubuntu 24.04
