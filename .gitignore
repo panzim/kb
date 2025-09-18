@@ -1,4 +1,6 @@
-/.ipynb_checkpoints/
+.ipynb_checkpoints/
+.env
+.idea/
 
 frontend/chat.db
 logs/*
