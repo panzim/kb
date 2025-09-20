@@ -85,8 +85,7 @@
 2025-09-13 11:16:06,193 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
 2025-09-13 11:16:06,195 - INFO - Going to convert document batch...
 2025-09-13 11:16:06,195 - INFO - Processing document 2025q1-alphabet-earnings-slides.pdf
-/home/mz/.local/lib/python3.12/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
-  warnings.warn(warn_msg)
+~/.local/lib/python3.12/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
 2025-09-13 11:16:26,508 - INFO - Finished converting document 2025q1-alphabet-earnings-slides.pdf in 20.32 sec.
 2025-09-13 11:16:26,526 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
 2025-09-13 11:16:26,527 - INFO - Going to convert document batch...
@@ -95,20 +94,17 @@
 2025-09-13 11:17:21,349 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
 2025-09-13 11:17:21,351 - INFO - Going to convert document batch...
 2025-09-13 11:17:21,352 - INFO - Processing document 2025q2-alphabet-earnings-slides.pdf
-/home/mz/.local/lib/python3.12/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
-  warnings.warn(warn_msg)
+~/.local/lib/python3.12/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
 2025-09-13 11:17:41,138 - INFO - Finished converting document 2025q2-alphabet-earnings-slides.pdf in 19.79 sec.
 2025-09-13 11:17:41,154 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
 2025-09-13 11:17:41,157 - INFO - Going to convert document batch...
 2025-09-13 11:17:41,157 - INFO - Processing document 6 things you can do with Google Photos’ Create tab.pdf
-/home/mz/.local/lib/python3.12/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
-  warnings.warn(warn_msg)
+~/.local/lib/python3.12/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
 2025-09-13 11:17:46,596 - INFO - Finished converting document 6 things you can do with Google Photos’ Create tab.pdf in 5.44 sec.
 2025-09-13 11:17:46,603 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
 2025-09-13 11:17:46,605 - INFO - Going to convert document batch...
 2025-09-13 11:17:46,605 - INFO - Processing document AI Mode in Google Search expands to more languages.pdf
-/home/mz/.local/lib/python3.12/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
-  warnings.warn(warn_msg)
+~/.local/lib/python3.12/site-packages/torch/utils/data/dataloader.py:666: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
 2025-09-13 11:17:56,179 - INFO - Finished converting document AI Mode in Google Search expands to more languages.pdf in 9.58 sec.
 2025-09-13 11:17:56,186 - INFO - detected formats: [<InputFormat.PDF: 'pdf'>]
 2025-09-13 11:17:56,187 - INFO - Going to convert document batch...
