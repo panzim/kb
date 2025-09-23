@@ -1,16 +1,15 @@
+import os
+import logging
 import time
 import uuid
 import sqlite3
-from fastapi import FastAPI, Request, Response, Cookie, HTTPException
-from fastapi.responses import JSONResponse, FileResponse
-from onnx.reference.ops.op_optional import Optional
+from fastapi import FastAPI, Request, Response, HTTPException
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
-import os
 import requests
-import logging
+
 
 logger = logging.getLogger("uvicorn")
-
 formatter = logging.Formatter(
     fmt="%(asctime)s.%(msecs)03d [%(levelname)s] %(name)s: %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
@@ -19,8 +18,8 @@ formatter = logging.Formatter(
 console_handler = logging.StreamHandler()
 console_handler.setFormatter(formatter)
 
-logpath = os.path.join(os.path.curdir, '..', 'logs', 'frontend.log')
-file_handler = logging.FileHandler(logpath, mode="a")
+log_path = os.path.join(os.path.curdir, '.', 'logs', 'frontend.log')
+file_handler = logging.FileHandler(log_path, mode="a")
 file_handler.setFormatter(formatter)
 
 logging.basicConfig(level=logging.INFO, handlers=[console_handler, file_handler])
@@ -33,7 +32,7 @@ app = FastAPI()
 
 DB_FILE = os.getenv("DB_FILE", "chat.db")
 BASIC_RAG_URL = os.getenv("BASIC_RAG_URL", "http://localhost:8044/chat")
-KRISP_SESSION = "krisp-session"
+SESSION_COOKIE = "pnzm-session"
 ROLE_USER = "user"
 ROLE_BOT = "bot"
 
@@ -100,49 +99,49 @@ async def read_index():
 
 @app.post("/session")
 def create_session(request: Request, response: Response):
-    krisp_session = request.cookies.get(KRISP_SESSION)
-    if krisp_session and session_exists(krisp_session):
-        return {"session": krisp_session}
+    sess_id: str | None = request.cookies.get(SESSION_COOKIE)
+    if sess_id and session_exists(sess_id):
+        return {"session": sess_id}
     session_id = str(uuid.uuid4())
     conn = sqlite3.connect(DB_FILE)
     cur = conn.cursor()
     cur.execute("INSERT INTO sessions (session_id) VALUES (?)", (session_id,))
     conn.commit()
     conn.close()
-    response.set_cookie(key="krisp-session", value=session_id, httponly=True)
+    response.set_cookie(key=SESSION_COOKIE, value=session_id, httponly=True)
     return {"session": session_id}
 
 @app.get("/history")
 def get_history(request: Request):
-    krisp_session = request.cookies.get(KRISP_SESSION)
-    if not krisp_session or not session_exists(krisp_session):
+    sess_id = request.cookies.get(SESSION_COOKIE)
+    if not sess_id or not session_exists(sess_id):
         raise HTTPException(status_code=401, detail="No valid session")
-    return get_messages(krisp_session)
+    return get_messages(sess_id)
 
 @app.post("/chat")
-def chat(request: Request, userMessageRequest: UserMessageRequest):
-    krisp_session = request.cookies.get(KRISP_SESSION)
-    if not krisp_session or not session_exists(krisp_session):
+def chat(request: Request, user_message_request: UserMessageRequest):
+    sess_id = request.cookies.get(SESSION_COOKIE)
+    if not sess_id or not session_exists(sess_id):
         raise HTTPException(status_code=401, detail="No valid session")
 
     t1 = time.time()
-    add_message(krisp_session, ROLE_USER, userMessageRequest.user_message)
-    chat_request = {"messages": get_messages(krisp_session)}
+    add_message(sess_id, ROLE_USER, user_message_request.user_message)
+    chat_request = {"messages": get_messages(sess_id)}
     logger.info("[BENCHMARK] database read write: %.2f" % (time.time() - t1))
 
     t2 = time.time()
     try:
         response = requests.post(BASIC_RAG_URL, json=chat_request).json()
-        logger.info("[BENCHMARK] Basic RAG response: %.2f" % (time.time() - 2))
+        logger.info("[BENCHMARK] Basic RAG response: %.2f" % (time.time() - t2))
         if 'reply' in response:
-            add_message(krisp_session, ROLE_BOT, response['reply'])
-            sources = sources = response.get('sources') or []
+            add_message(sess_id, ROLE_BOT, response['reply'])
+            sources = response.get('sources') or []
             return {"reply": response['reply'], "sources": sources}
         else:
             return {}
     except Exception as ex:
         error = str(ex)
-        logger.info("[BENCHMARK] Basic RAG error: %.2f" % (time.time() - 2))
+        logger.info("[BENCHMARK] Basic RAG error: %.2f" % (time.time() - t2))
         if len(error) > 200:
             return {"error": "Server error: " + error[:200] + "..."}
         else:

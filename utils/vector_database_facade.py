@@ -1,4 +1,7 @@
 import os
+import pickle
+import logging
+import time
 from typing import Dict, List
 from typing import Tuple, Iterator
 
@@ -8,21 +11,13 @@ from langchain_core.documents import Document
 from rerankers.results import Result
 from sentence_transformers import SentenceTransformer
 from tqdm import tqdm
-import logging
-import time
-
-try:
-    from utils.utils import pickle_read, pickle_write
-except:
-    from utils import pickle_read, pickle_write
 
 class VectorDatabaseFacade:
     def __init__(self, database_directory: str, embedding_model: SentenceTransformer):
         self.database_directory = database_directory
         self.embedding_model = embedding_model
-        self.index: faiss.IndexFlatIP = None # (fine_splitter._model[1].word_embedding_dimension)
+        self.index: faiss.IndexFlatIP = None
         self.documents: Dict[int, Document] = None
-        #self.ranker = Ranker(model_name="ms-marco-MiniLM-L-12-v2", cache_dir=database_directory)
         self.ranker = Ranker(max_length=1024, cache_dir=database_directory)
         self.logger = logging.getLogger("uvicorn")
         self.logger.info("Reranker dir: %s, llm: %s" % (self.ranker.model_dir, self.ranker.llm_model))
@@ -34,7 +29,6 @@ class VectorDatabaseFacade:
         self.documents = {}
         for doc in tqdm(docs):
             embeddings = self.embedding_model.encode([doc.page_content], show_progress_bar=False)
-            # embeddings = embeddings / np.linalg.norm(embeddings, axis=1, keepdims=True)
             self.documents[document_index] = doc
             self.index.add(embeddings)
             doc.id = document_index
@@ -55,13 +49,13 @@ class VectorDatabaseFacade:
     def query(self, query: str, min_score: float = 0.01, limit: int = 10) -> Iterator[Tuple[Document, float]]:
         t1 = time.time()
         query_embedding = self.embedding_model.encode([query], show_progress_bar=False)
-        # query_embedding = query_embedding / np.linalg.norm(query_embedding, axis=1, keepdims=True)
-        scores, indexies = self.index.search(query_embedding, k=100)
+        scores, indexes = self.index.search(query_embedding, k=100)
+
         self.logger.info("[BENCHMARK] Vector database cosine search: %.2f" % (time.time() - t1))
 
         # Rerank
         passages = []
-        for score, idx in list(zip(scores[0], indexies[0])):
+        for score, idx in list(zip(scores[0], indexes[0])):
             doc: Document = self.documents[idx]
             passages.append(
                 {
@@ -71,16 +65,26 @@ class VectorDatabaseFacade:
             )
 
         t2 = time.time()
-        runker_results: List[Result] = self.ranker.rerank(RerankRequest(query=query, passages=passages))
+        ranker_results: List[Result] = self.ranker.rerank(RerankRequest(query=query, passages=passages))
         self.logger.info("[BENCHMARK] Reranker: %.2f" % (time.time() - t2))
         results = []
-        for i, result in enumerate(runker_results):
+        for i, result in enumerate(ranker_results):
             if (i > 0 and result['score'] < min_score) or i > limit:
                 break
             idx = result["id"]
             doc = self.documents[idx]
             results.append((doc, result['score']))
         return results
+
+
+def pickle_read(filename: str):
+    with open(filename + ".pkl", "rb") as f:
+        loaded_data = pickle.load(f)
+    return loaded_data
+
+def pickle_write(data, filename: str):
+    with open(filename + ".pkl", "wb") as f:
+        pickle.dump(data, f)
 
 if __name__ == '__main__':
     from document_loader import DocumentLoader
