@@ -1,6 +1,8 @@
 # Panzim: An AI-Powered Knowledge Base Chat App
 
-This is a prototype of an AI-enabled chat application designed to interact with a knowledge base of corporate documents. This tool is an intelligent assistant for navigating and understanding complex information.
+This is a prototype of an AI-enabled chat application designed to interact with a knowledge base of corporate documents.
+![Mock Panzim ad](doc/PanzimAd.png)
+This tool is an intelligent assistant for navigating and understanding complex information.
 
 ## Primary Potential Users
 
