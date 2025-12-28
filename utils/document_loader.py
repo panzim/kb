@@ -2,7 +2,7 @@ import glob
 import os
 from typing import Iterator
 
-from langchain.text_splitter import SentenceTransformersTokenTextSplitter
+from langchain_text_splitters import SentenceTransformersTokenTextSplitter
 from langchain_core.documents import Document
 from markdown_it import MarkdownIt
 

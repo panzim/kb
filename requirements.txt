@@ -2,6 +2,8 @@ torch
 numpy
 transformers
 langchain
+langchain-community
+langchain-text-splitters
 sentence-transformers
 tqdm
 ipywidgets
@@ -9,7 +11,6 @@ openpyxl
 openai
 pandas
 datasets
-langchain-community
 ipykernel
 ragas
 rapidfuzz
