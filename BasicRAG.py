@@ -133,7 +133,7 @@ def paragraph_parser(doc: Iterator[Document], min_chink_size: int = 500, max_chu
 
 
 from utils.document_loader import DocumentLoader
-docs = list(DocumentLoader().load())
+docs = list(DocumentLoader().load_and_split())
 try:
     index = faiss.read_index("basic_rag.faiss")
     meta = pickle_read("meta")

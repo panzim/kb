@@ -16,19 +16,17 @@ class DocumentLoader:
         )
         self.model = self.fine_splitter._model
 
-    # load and split
-    def load(self, knowledge_base_path: str = "text-kb") -> Iterator[Document]:
-        yield from self.paragraph_parser(self.load_documents(knowledge_base_path))
-
-    def load_documents(self, knowledge_base_path: str = "text-kb") -> Iterator[Document]:
-        for filepath in glob.glob(os.path.join(knowledge_base_path, "*.md")):
-            filename = os.path.basename(filepath)
-            original_filename = filename.removesuffix(".md") + ".pdf"
-            with open(filepath) as f:
-                yield Document(
-                    page_content=f.read(),
-                    metadata={"source": original_filename}
-                )
+    def load_and_split(self, knowledge_base_path: str = "text-kb") -> Iterator[Document]:
+        def documents() -> Iterator[Document]:
+            for filepath in glob.glob(os.path.join(knowledge_base_path, "*.md")):
+                filename = os.path.basename(filepath)
+                original_filename = filename.removesuffix(".md") + ".pdf"
+                with open(filepath) as f:
+                    yield Document(
+                        page_content=f.read(),
+                        metadata={"source": original_filename}
+                    )
+        yield from self.paragraph_parser(documents())
 
     def table_like(self, string: str) -> float:
         return string.count('|') / len(string)
@@ -72,7 +70,7 @@ class DocumentLoader:
 
         return result
 
-    def paragraph_parser(self, docs: Iterator[Document], min_chink_size: int = 500, max_chunk_size: int = 1000) -> Iterator[Document]:
+    def paragraph_parser(self, docs: Iterator[Document], min_chunk_size: int = 500, max_chunk_size: int = 1000) -> Iterator[Document]:
         paragraph = [] # header (h2) + text
         paragraph_tags = set()
 
@@ -87,15 +85,12 @@ class DocumentLoader:
                     if t.tag.startswith('h') and len(paragraph_tags) > 1:
                         if paragraph:
                             full_content = "\n".join([p for _, p in paragraph])
-                            if len(full_content) > min_chink_size:
+                            if len(full_content) > min_chunk_size:
                                 for chunk in self.chunk_strings(paragraph, max_size=max_chunk_size):
                                     metadata=doc.metadata.copy()
                                     metadata['chunk_index'] = chunk_index
                                     chunk_index += 1
-                                    yield Document(
-                                        page_content=chunk,
-                                        metadata=metadata
-                                    )
+                                    yield Document(page_content=chunk, metadata=metadata)
                             paragraph = []
                             paragraph_tags = set()
 
@@ -112,14 +107,12 @@ class DocumentLoader:
                     paragraph.append([" ".join(stack), t.content])
                 if t.tag:
                     paragraph_tags.add(t.tag)
+
             if paragraph:
                 full_content = "\n".join([p for _, p in paragraph])
-                if len(full_content) > min_chink_size:
+                if len(full_content) > min_chunk_size:
                     for chunk in self.chunk_strings(paragraph, max_size=max_chunk_size):
                         metadata=doc.metadata.copy()
                         metadata['chunk_index'] = chunk_index
                         chunk_index += 1
-                        yield Document(
-                            page_content=chunk,
-                            metadata=metadata
-                        )
+                        yield Document(page_content=chunk, metadata=metadata)
