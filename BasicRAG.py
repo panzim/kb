@@ -6,11 +6,8 @@ from langchain_core.documents import Document
 import os
 from tqdm import tqdm
 from typing import Tuple, Iterator, List, Dict, Any
-
 import faiss
 import pickle
-from markdown_it import MarkdownIt
-
 from flashrank import Ranker, RerankRequest
 
 
@@ -74,62 +71,8 @@ def chunk_strings(strings, max_size: int):
             else:
                 current_chunk = s
 
-    if current_chunk:
-        result.append(current_chunk)
-
+    if current_chunk: result.append(current_chunk)
     return result
-
-def paragraph_parser(doc: Iterator[Document], min_chink_size: int = 500, max_chunk_size: int = 1000) -> Iterator[Document]:
-    paragraph = [] # header (h2) + text
-    paragraph_tags = set()
-
-    for doc in docs:
-        md = MarkdownIt()
-        tokens = md.parse(doc.page_content)
-
-        stack = []
-        chunk_index = 0
-        for t in tokens:
-            if t.type.endswith('_open'):
-                if t.tag.startswith('h') and len(paragraph_tags) > 1:
-                    if paragraph:
-                        full_content = "\n".join([p for _, p in paragraph])
-                        if len(full_content) > min_chink_size:
-                            for chunk in chunk_strings(paragraph, max_size=max_chunk_size):
-                                metadata=doc.metadata.copy()
-                                metadata['chunk_index'] = chunk_index
-                                chunk_index += 1
-                                yield Document(
-                                    page_content=chunk,
-                                    metadata=metadata
-                                )
-                        paragraph = []
-                        paragraph_tags = set()
-
-                stack.append(t.tag)
-            elif t.type.endswith('_close'):
-                stack.pop()
-            elif t.type == 'inline':
-                pass
-            elif t.type == 'html_block' and '<!-- image -->' in t.content:
-                continue # ignore images
-            else:
-                raise RuntimeError("Unexpected type: %s" % t.type)
-            if t.content:
-                paragraph.append([" ".join(stack), t.content])
-            if t.tag:
-                paragraph_tags.add(t.tag)
-        if paragraph:
-            full_content = "\n".join([p for _, p in paragraph])
-            if len(full_content) > min_chink_size:
-                for chunk in chunk_strings(paragraph, max_size=max_chunk_size):
-                    metadata=doc.metadata.copy()
-                    metadata['chunk_index'] = chunk_index
-                    chunk_index += 1
-                    yield Document(
-                        page_content=chunk,
-                        metadata=metadata
-                    )
 
 
 from utils.document_loader import DocumentLoader
@@ -154,10 +97,7 @@ for score, idx in list(zip(scores[0], indexes[0])):
     print(score, idx, meta[idx])
 
 
-#ranker = Ranker(model_name="ms-marco-MiniLM-L-12-v2", cache_dir="cache")
 ranker = Ranker(max_length=128)
-# ranker.model_dir                             )
-# for r in result: print(r)
 
 class VectorDatabaseFacade5:
     def __init__(self, database_directory: str, embedding_model: SentenceTransformer):
