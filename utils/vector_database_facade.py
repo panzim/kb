@@ -10,7 +10,6 @@ from flashrank import Ranker, RerankRequest
 from langchain_core.documents import Document
 from rerankers.results import Result
 from sentence_transformers import SentenceTransformer
-from tqdm import tqdm
 
 class VectorDatabaseFacade:
     def __init__(self, database_directory: str, embedding_model: SentenceTransformer):
@@ -27,7 +26,7 @@ class VectorDatabaseFacade:
             self.index = faiss.IndexFlatIP(self.embedding_model[1].word_embedding_dimension)
         document_index = self.index.ntotal
         self.documents = {}
-        for doc in tqdm(docs):
+        for doc in docs:
             embeddings = self.embedding_model.encode([doc.page_content], show_progress_bar=False)
             self.documents[document_index] = doc
             self.index.add(embeddings)
@@ -90,10 +89,7 @@ if __name__ == '__main__':
     from document_loader import DocumentLoader
     doc_loader = DocumentLoader()
     DATABASE_PATH = os.getenv('DATABASE_PATH', os.path.join(os.path.curdir, 'db'))
-    vector_database = VectorDatabaseFacade(
-        database_directory=DATABASE_PATH,
-        embedding_model=doc_loader.model
-    )
+    vector_database = VectorDatabaseFacade(database_directory=DATABASE_PATH, embedding_model=doc_loader.model)
     vector_database.load()
     for doc in vector_database.query("philip"):
         print(doc)

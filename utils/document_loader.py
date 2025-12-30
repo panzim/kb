@@ -65,9 +65,7 @@ class DocumentLoader:
                 else:
                     current_chunk = s
 
-        if current_chunk:
-            result.append(current_chunk)
-
+        if current_chunk: result.append(current_chunk)
         return result
 
     def paragraph_parser(self, docs: Iterator[Document], min_chunk_size: int = 500, max_chunk_size: int = 1000) -> Iterator[Document]:
