@@ -5,7 +5,11 @@ version = "0.1.0"
 dependencies = [
   "fastapi",
   "pydantic",
+  "uvicorn>=0.40.0",
 ] # Common dependencies
 
 [tool.uv.workspace]
 members = ["backend", "frontend"]
+
+[tool.uv]
+prerelease = "allow"
