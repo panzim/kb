@@ -9,8 +9,8 @@ from pydantic import BaseModel
 from langchain_core.documents import Document
 import openai
 
-from utils.vector_database_facade import VectorDatabaseFacade
-from utils.document_loader import DocumentLoader
+from vector_database_facade import VectorDatabaseFacade
+from document_loader import DocumentLoader
 
 import logging
 

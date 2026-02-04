@@ -1,0 +1,11 @@
+[project]
+name = "Panzim"
+readme = "Readme.md"
+version = "0.1.0"
+dependencies = [
+  "fastapi",
+  "pydantic",
+] # Common dependencies
+
+[tool.uv.workspace]
+members = ["backend", "frontend"]
