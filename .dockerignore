@@ -1,0 +1,6 @@
+**/Dockerfile
+**/__pycache__/
+**/hf.cache/
+backend/docker-run.sh
+backend/db/
+backend/logs/

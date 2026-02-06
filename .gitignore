@@ -5,3 +5,5 @@ __pycache__/
 
 frontend/chat.db
 logs/*
+/backend/hf.cache/
+/backend/logs/*.log

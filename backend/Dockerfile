@@ -1,31 +1,39 @@
-# Use a slim Python image
-FROM python:3.14-slim AS builder
+# Builder Stage
+FROM python:3.13-slim AS builder
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 WORKDIR /app
 
 # 1. Copy the workspace configuration and lockfile
 COPY pyproject.toml uv.lock ./
-# 2. Copy the relevant sub-projects
+# 2. Copy the relevant sub-project
 COPY backend/ ./backend/
 
-# 3. Synchronize dependencies 
-# use --package backend to focus the install
+# Pre-load tockenizer model
+ENV HF_HOME=/app/hf.cache
+RUN uv run backend/pre-load.py
+
+# 3. Synchronize dependencies
 RUN uv sync --frozen --no-dev --package backend
 
+
 # Final Stage
-FROM python:3.14-slim
+FROM python:3.13-slim
 WORKDIR /app
 
 # Copy the venv from the builder
 COPY --from=builder /app/.venv /app/.venv
 COPY --from=builder /app/backend /app/backend
+COPY --from=builder /app/hf.cache /app/hf.cache
 
 # Create directories for mounts and set permissions
-RUN mkdir -p /app/db /app/logs && chmod 777 /app/db /app/logs
+RUN mkdir -p /app/backend/db /app/backend/logs \
+  && chmod 777 /app/backend/db /app/backend/logs
 
 # Ensure the venv is used
 ENV PATH="/app/.venv/bin:$PATH"
+ENV HF_HOME=/app/hf.cache
+ENV HF_HUB_OFFLINE=1
 
 # Set the working directory to the backend for your script
 WORKDIR /app/backend

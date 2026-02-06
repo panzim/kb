@@ -9,6 +9,11 @@ from pydantic import BaseModel
 from langchain_core.documents import Document
 import openai
 
+# set HF_HOME before importing `transformers` or `sentence-transformers`
+from pathlib import Path
+default_cache = Path(__file__) / "hf.cache"
+os.environ.setdefault("HF_HOME", str(default_cache.absolute()))
+
 from vector_database_facade import VectorDatabaseFacade
 from document_loader import DocumentLoader
 

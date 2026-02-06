@@ -1,0 +1,24 @@
+services:
+  panzim-be:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: panzim-backend
+    ports:
+      - "8044:8044"
+    env_file:
+      - .env  # OPENAI_API_KEY
+    volumes:
+      - ./db:/app/db:rw
+      - ./logs:/app/logs:rw
+    restart: unless-stopped
+
+  panzim-fe:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: panzim-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - panzim-be # Ensure backend starts first
