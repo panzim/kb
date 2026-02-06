@@ -1,0 +1,10 @@
+2026-02-06 20:35:07.569 [INFO] uvicorn.error: Started server process [231872]
+2026-02-06 20:35:07.569 [INFO] uvicorn.error: Waiting for application startup.
+2026-02-06 20:35:07.569 [INFO] uvicorn.error: Application startup complete.
+2026-02-06 20:35:07.569 [INFO] uvicorn.error: Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2026-02-06 20:36:04.647 [INFO] uvicorn: [BENCHMARK] database read write: 0.02
+2026-02-06 20:36:10.546 [INFO] uvicorn: [BENCHMARK] Basic RAG response: 5.90
+2026-02-06 20:40:54.527 [INFO] uvicorn.error: Shutting down
+2026-02-06 20:40:54.628 [INFO] uvicorn.error: Waiting for application shutdown.
+2026-02-06 20:40:54.628 [INFO] uvicorn.error: Application shutdown complete.
+2026-02-06 20:40:54.628 [INFO] uvicorn.error: Finished server process [231872]
