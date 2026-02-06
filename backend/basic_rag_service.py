@@ -50,14 +50,14 @@ DATABASE_PATH = os.getenv('DATABASE_PATH', os.path.join(os.path.curdir, 'db'))
 
 app = FastAPI()
 openai_client = openai.Client(api_key=OPENAI_API_KEY)
-logger.warning("RAG loading started")
+logger.info("RAG loading started")
 document_loader = DocumentLoader()
 vector_database_facade = VectorDatabaseFacade(
     database_directory=DATABASE_PATH,
     embedding_model=document_loader.model
 )
 vector_database_facade.load()
-logger.warning("RAG is ready")
+logger.info("RAG is ready")
 
 class Message(BaseModel):
     text: str

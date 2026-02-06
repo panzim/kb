@@ -18,7 +18,7 @@ class VectorDatabaseFacade:
         self.index: faiss.IndexFlatIP = None
         self.documents: Dict[int, Document] = None
         self.ranker = Ranker(max_length=1024, cache_dir=database_directory)
-        self.logger = logging.getLogger("uvicorn")
+        self.logger = logging.getLogger("vec-db")
         self.logger.info("Reranker dir: %s, llm: %s" % (self.ranker.model_dir, self.ranker.llm_model))
 
     def save_documents(self, docs: Iterator[Document], autosave: bool = True):
@@ -26,11 +26,11 @@ class VectorDatabaseFacade:
             self.index = faiss.IndexFlatIP(self.embedding_model[1].word_embedding_dimension)
         document_index = self.index.ntotal
         self.documents = {}
-        for doc in docs:
-            embeddings = self.embedding_model.encode([doc.page_content], show_progress_bar=False)
-            self.documents[document_index] = doc
+        for dcx in docs:
+            embeddings = self.embedding_model.encode([dcx.page_content], show_progress_bar=False)
+            self.documents[document_index] = dcx
             self.index.add(embeddings)
-            doc.id = document_index
+            dcx.id = document_index
             document_index += 1
         if autosave:
             self.save()
@@ -50,29 +50,29 @@ class VectorDatabaseFacade:
         query_embedding = self.embedding_model.encode([query], show_progress_bar=False)
         scores, indexes = self.index.search(query_embedding, k=100)
 
-        self.logger.info("[BENCHMARK] Vector database cosine search: %.2f" % (time.time() - t1))
+        self.logger.info(f"[BENCHMARK] Vector database cosine search: {time.time() - t1:.2f} s")
 
         # Rerank
         passages = []
         for score, idx in list(zip(scores[0], indexes[0])):
-            doc: Document = self.documents[idx]
+            dcx: Document = self.documents[idx]
             passages.append(
                 {
                     "id": idx,
-                    "text": doc.page_content
+                    "text": dcx.page_content
                 }
             )
 
         t2 = time.time()
         ranker_results: List[Result] = self.ranker.rerank(RerankRequest(query=query, passages=passages))
-        self.logger.info("[BENCHMARK] Reranker: %.2f" % (time.time() - t2))
+        self.logger.info(f"[BENCHMARK] Reranker: {time.time() - t2:.2f} s")
         results = []
         for i, result in enumerate(ranker_results):
             if (i > 0 and result['score'] < min_score) or i > limit:
                 break
             idx = result["id"]
-            doc = self.documents[idx]
-            results.append((doc, result['score']))
+            dcx = self.documents[idx]
+            results.append((dcx, result['score']))
         return results
 
 
