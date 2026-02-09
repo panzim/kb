@@ -2,14 +2,7 @@
 name = "Panzim"
 readme = "Readme.md"
 version = "0.1.0"
-dependencies = [
-  "fastapi",
-  "pydantic",
-  "uvicorn>=0.40.0",
-] # Common dependencies
+dependencies = [] # dependencies are in workspaces for ease of biulding containers
 
 [tool.uv.workspace]
 members = ["backend", "frontend"]
-
-[tool.uv]
-prerelease = "allow"

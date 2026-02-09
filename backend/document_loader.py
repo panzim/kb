@@ -10,7 +10,7 @@ from markdown_it import MarkdownIt
 class DocumentLoader:
     def __init__(self):
         self.fine_splitter = SentenceTransformersTokenTextSplitter(
-            # model_name="sentence-transformers/all-mpnet-base-v2",  ## the default one
+            model_name="all-mpnet-base-v2",  ## the default one ??
             tokens_per_chunk=384,
             chunk_overlap=50
         )
